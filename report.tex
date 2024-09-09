@@ -73,7 +73,7 @@
 \maketitle
 
 \begin{abstract}
-(Delete and Replace:) You can safely delete and replace the explanations in this file as they will remain available on the course website. For example, you should replace this abstract with your own. The abstract should be a short summary of the report. It should be written in a way that makes it possible to understand the purpose of the report without reading it.  
+If will write this abstract... later!
 \end{abstract}
 
 \setcounter{tocdepth}{3}
@@ -81,15 +81,7 @@
 
 \section{Introduction}\label{intro}
 
-(Delete and Replace): This report will document your learning throughout the course. It will be a collection of your notes, homework solutions, and critical reflections on the content of the course. Something in between a semester-long take home exam and your own lecture notes.\footnote{One purpose of giving the report the form of lecture notes is that self-explanation is a technique proven to help with learning, see Chapter 6 of Craig Barton, How I Wish I'd Taught Maths, and references therein. In fact, the report can lead you from self-explanation (which is what you do for the weekly deadline) to explaining to others (which is what you do for the final submission). Another purpose is to help those of you who want to go on to graduate school to develop some basic writing skills. A report that you could proudly add to your application to graduate school (or a job application in industry) would give you full points.}
-
-To modify this template you need to modify the source \texttt{report.tex} which is available in the course repo. For guidance on how to do this read both the source and the pdf of \texttt{latex-example.tex} which is also available in the repo. Also check out the usual resources (Google, Stackoverflow, LLM, etc). It was never as easy as now to learn a new programming lanugage (which, btw, \LaTeX{} is).
-
-For writing \LaTeX{} with VSCode use the \href{https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop}{LaTeX Workshop} extension. 
-
-There will be deadlines during the semester, graded mostly for completeness. That means that you will get the points if you submit in time and are on the right track, independently of whether the solutions are technically correct. You will have the opportunity to revise your work for the final submission of the full report.
-
-The full report is due at the end of the finals week. It will be graded according to the following guidelines.
+This introduction will be filled later, when I know what I want to say!
 
 Grading  guidelines (see also below):
 \begin{itemize}
@@ -109,6 +101,9 @@ Do not change the template (fontsize, width of margin, spacing of lines, etc) wi
 
 \subsubsection*{Notes}
 This week in class we mainly focused on learning Lean, setting up \LaTeX, and a brief lecture on the basis of $Proof = Program$. This idea shows how logical mathematical proofs are a constructive process, building on previously founded theorems and definitions. This idea transfers to theoretical programming in the sense that programs are also constructed proofs. The execution of a program is the execution of many logical steps in a proof. I enjoy how this relates to the "human" process as well - our activities are the execution of previously learned strategies in a logical way.
+
+\subsubsection*{Question} I was interested in learning more about Proof = Program, and some additional sleuthing showed me how a running a program is simply executing the steps in a logical proof. I was wondering how more complex program design methods such as recursion adhere to this idea, and if there are other programming methodologies that do not adhere to Proof = Program?
+
 \subsubsection*{Homework}
 
   \subsubsection*{Level 5 - Adding Zero}
@@ -182,12 +177,79 @@ Translating Lean into Math by matching each line in Lean to the corresponding ma
 \newline \newline Defining data types recursively (in terms of itself). Syntax varies by language. 
 \newline \newline Recursion example with the Tower of Hanoi. Breaking logical puzzles into iterative steps, then into recursive steps.
 
+\subsubsection*{Question}
+In class we used recursion to prove an algorithmic solution for the tower of hanoi game. Within the scope of proofs, what are the biggest drawbacks/advantages to using iterative vs recursive techniques?
 
 %(Delete:) Week 2 (and all the other weeks) should follow the same pattern as Week 1. Even if there is a week without homework, notes and comments (see above) are still expected.
 
-\subsection{\ldots}
+\subsubsection*{Homework}
 
-\ldots
+\subsubsection*{Level 1 - Zero Add}
+  In this level we prove the theorem that $\textbf{0 + n = n}$. It was our first use of proof by induction.
+
+  \bgroup\obeylines
+  \qquad \textbf{induction n with d hd}
+  \qquad \textbf{rw add zero}
+  \qquad \textbf{rfl}
+  \qquad \textbf{rw add succ}
+  \qquad \textbf{rw hd}
+  \qquad \textbf{rfl}
+  \egroup
+
+  \subsubsection*{Level 2 - Succ Add}
+  In this level we prove the theorem that $\textbf{succ(a) + b = succ(a + b)}$.
+
+  \bgroup\obeylines
+  \qquad \textbf{induction b with d hd}
+  \qquad \textbf{repeat rw add zero}
+  \qquad \textbf{rfl}
+  \qquad \textbf{rw add succ}
+  \qquad \textbf{rw hd}
+  \qquad \textbf{rw add succ}
+  \qquad \textbf{rfl}
+  \egroup
+
+  \subsubsection*{Level 3 - Add Comm}
+  In this level we prove the theorem that $\textbf{a + b = b + a}$.
+
+  \bgroup\obeylines
+  \qquad \textbf{induction b}
+  \qquad \textbf{rw add zero}
+  \qquad \textbf{rw zero add}
+  \qquad \textbf{rfl}
+  \qquad \textbf{rw succ add}
+  \qquad \textbf{rw add succ}
+  \qquad \textbf{rw nih}
+  \qquad \textbf{rfl}
+  \egroup
+
+  \subsubsection*{Level 4 - Add Assoc}
+  In this level we prove the theorem that $\textbf{(a + b) + c = a + (b + c)}$.
+
+  \bgroup\obeylines
+  \qquad \textbf{induction b}
+  \qquad \textbf{rw add zero}
+  \qquad \textbf{rw zero add}
+  \qquad \textbf{rfl}
+  \qquad \textbf{rw add succ}
+  \qquad \textbf{rw succ add}
+  \qquad \textbf{rw nih}
+  \qquad \textbf{rw add comm}
+  \qquad \textbf{rw succ add}
+  \qquad \textbf{rw add succ}
+  \qquad \textbf{rfl}
+  \egroup
+
+  \subsubsection*{Level 5 - Add Comm Right}
+  In this level we prove the theorem that $\textbf{(a + b) + c = (a + c) + b}$. I will show the mathematical assumptions I used when deciding my proof in Lean.
+
+  \bgroup\obeylines
+  \qquad \textbf{rw add assoc a b} —— (RHS) By associativity rule, $\textbf{a + c + b = a + (c + b)}$
+  \qquad \textbf{rw add assoc} —— (LHS) By associativity rule, $\textbf{a + b + c = a + (b + c)}$
+  \qquad \textbf{rw add comm b c} —— (LHS) By commutative rule, $\textbf{a + (b + c) = a + (c + b)}$
+  \qquad \textbf{rfl} —— Proves the goal $\textbf{X = X}$
+  \egroup
+
 
 \section{Lessons from the Assignments}
 
