@@ -28,7 +28,7 @@ This method is the public access to evaluation. Stores the evaluation result and
 This method is the public access to next evaluation. Prepends the stored result (default `0`) to the provided expression. The provided expression must begin with an operator. Stores the evaluation result and returns a float.
 
 >`Calculator._evaluate(expr: str) -> float`\
-Tokenizes the provided expression and returns a float. Calls `Calculator._parse_eval(...)`, which may recursively call this method to evaluate sub-expressions within parentheses. Returns a float.
+Tokenizes the provided expression. Calls `Calculator._parse_eval(...)`, which may recursively call this method to evaluate sub-expressions within parentheses. Returns a float.
 
 >`Calculator._tokenize(expr: str) -> list[str]`\
 Tokenizes the provided expression using `Calculator.complete_token_pattern`.
@@ -50,6 +50,7 @@ Iteratively traverses the `tokens` and captures digits, operators, and sub-expre
 >    1. While there are operators in `operators`, and the topmost operator in `operators` is higher priority than the encountered operator:
 >       1. Call `Calculator._apply_operator(left, right, oper)`, where `left` and `right` are the two digits at the top of `values`, and `oper` is the topmost operator in `operators`.
 >       2. `left`, `right`, and `oper` are popped from their respective lists.
+>       3. The result is appended to `values`.
 >    2. Add the encountered operator to `operators`.
 > 
 > After all tokens have been traversed, repeat steps **4.i.a** through **4.i.b** while any operators still exist in `operators`. Returns the final remaining digit in `values`.
@@ -58,7 +59,7 @@ Iteratively traverses the `tokens` and captures digits, operators, and sub-expre
 > Returns the priority of `operator` using `Calculator.operation_priority`.
 
 >`Calculator._apply_operator(left: float, right: float, oper: str) -> float`\
-> Returns the result of `oper` on `left` and `right`.
+> Returns the result of `oper` on `left` and `right` in the form `oper(left, right)` using `Calculator.operations`.
 
 ### References
 I used ChatGPT to learn more about writing regex strings and pattern matching.
