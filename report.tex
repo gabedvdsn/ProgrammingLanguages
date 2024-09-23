@@ -11,6 +11,7 @@
 \usepackage{fullpage}
 \usepackage{color}
 \usepackage{parskip}
+\usepackage{graphicx}
 \usepackage{hyperref}
   \hypersetup{
     colorlinks = true,
@@ -250,6 +251,20 @@ In class we used recursion to prove an algorithmic solution for the tower of han
   \qquad \textbf{rfl} —— Proves the goal $\textbf{X = X}$
   \egroup
 
+\subsection{Week 3}
+
+\subsubsection*{Notes}
+This week we talked a lot about context free grammars, especially within the context of parsing mathematical expressions. I really enjoyed learning more about CFGs, especially visualized, because it helped me to understand how CFGs are so important for programming languages. I also couldn't help but think how cool the visualized abstract syntax tree was. It makes me think more about how this sort of approach can be applied to other areas. I had unintentionally started designing my calculator using a similar paradigm, recursively splitting the expression into two small parts until each expression was complete. (I ended up switching approaches, but I thought it was cool anyway).
+
+I was doing some additional research into ASTs, and was intrigued by the subsequent processes also required as part of compilation. Semantic analysis, for example. How many other steps are necessary for compilation? Does this process change for interpreted languages? I would be interested in learning more about the overhead costs of script compilation.
+
+\subsubsection*{Question} Last week we talked about context free grammars, especially within the context of mathematical syntax. Reading online, I learned about context-sensitive grammars. Can a CFG also be described as a CSG, or vice-versa? From what I could tell online, CSGs are invariably more complex than CFGs, so are there any actual applications of context sensitive grammars, and how is this reflected in its AST?
+
+\subsubsection*{Homework}
+\begin{center}
+\includegraphics[scale=.5]{CPSC354 HW4-1.png}
+\includegraphics[scale=.6]{CPSC354 HW4-2.png}
+\end{center}
 
 \section{Lessons from the Assignments}
 
