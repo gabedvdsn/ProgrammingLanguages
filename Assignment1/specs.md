@@ -37,7 +37,7 @@ Tokenizes the provided expression using `Calculator.complete_token_pattern`.
 Iteratively traverses the `tokens` and captures digits, operators, and sub-expressions within parentheses.
 >#### Fields
 >`Calculator._parse_eval.values: list[float]`\
->`Calculator._parse_eval.operators: list[str]`\
+>`Calculator._parse_eval.operators: list[str]`
 > 
 > This method follows the following steps as it traverses `tokens`.
 > 1. Match token to digit using `Calculator.digit_token_pattern`. Capture digit to `values`.
