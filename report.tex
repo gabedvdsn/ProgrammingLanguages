@@ -266,6 +266,95 @@ I was doing some additional research into ASTs, and was intrigued by the subsequ
 \includegraphics[scale=.6]{CPSC354 HW4-2.png}
 \end{center}
 
+\subsection{Week 4}
+
+\subsubsection*{Notes} This week we discussed creating a calculator with CFGs and then about the next Lean world on logic. The logic world, similar to the math world, is about breaking down larger problems into manageable parts and tackling them one by one. If we can prove every infitessimal aspect of a larger problem, then we solve that large problem. I have really enjoyed working in the logic world so far because it is very similar to code design in game development. In game development, there are a number of components that control more context specific components, from the most high-level management context to the most basic mechanic. 
+
+\subsubsection*{Question} Similar to Lianal's question, why does the logic world in Lean allow for varying syntax, while the math Lean world did not? Is this reflected in real (written) math/logic proofs?
+
+\subsubsection*{Homework}
+
+\subsubsection*{Level 1 - Exactly! It's in the premise}
+Assumptions: $(P : Prop)(todo\_list : P) : P := by$
+
+\[
+\begin{aligned}
+  (1)&\text{ exact todo\_list}
+\end{aligned}
+\]
+
+\subsubsection*{Level 2 - And Introduction}
+Assumptions: $(P S : Prop)(p: P)(s : S) : P \wedge S := by$
+
+\[
+\begin{aligned}
+  (1)&\text{ exact ⟨ p, s ⟩}
+\end{aligned}
+\]
+
+\subsubsection*{Level 3 - The Have Tactic}
+Assumptions: $(A I O U : Prop)(a : A)(i : I)(o : O)(u : U) : (A \wedge I) \wedge O \wedge U := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ have ai } \text{:= and\_intro a i}\\
+  (2)& \text{ have ou } \text{:= and\_intro o u}\\
+  (3)& \text{ exact ⟨ ai, ou ⟩}
+\end{aligned}
+\]
+
+\subsubsection*{Level 4 - And Elimination}
+Assumptions: $(P S : Prop)(vm: P \wedge S) : P := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ have p } \text{:= vm.left}\\
+  (2)& \text{ exact p}
+\end{aligned}
+\]
+
+\subsubsection*{Level 5 - And Elimination 2}
+Assumptions: $(P Q : Prop)(h: P \wedge Q) : Q := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ have q } \text{:= h.right}\\
+  (2)& \text{ exact q}
+\end{aligned}
+\]
+
+\subsubsection*{Level 6 - Mix and Match}
+Assumptions: $(A I O U : Prop)(h1 : A \wedge I)(h2 : O \wedge U) : A \wedge U := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact ⟨ h1.left, h2.right ⟩ }
+\end{aligned}
+\]
+
+\subsubsection*{Level 7 - More Elimination}
+Assumptions: $(C L : Prop)(h: (L \wedge (((L \wedge C) \wedge L) \wedge L \wedge L \wedge L)) \wedge (L \wedge L) \wedge L) : C := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact h.left.right.left.left.right }
+\end{aligned}
+\]
+
+\subsubsection*{Level 8 - Rearranging Boxes}
+Assumptions: $(A C I O P S U : Prop)(h: ((P \wedge S) \wedge A) \wedge \neg I \wedge (C \wedge ¬O) \wedge ¬U) : A \wedge C \wedge P \wedge S := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ have c } \text{:= h.right.right.left.left}&\\
+  (2)& \text{ have psa } \text{:= h.left}&\\
+  (3)& \text{ have p } \text{:= psa.left.left}&\\
+  (4)& \text{ have s } \text{:= psa.left.right}&\\
+  (5)& \text{ have a } \text{:= psa.right}&\\
+  (6)& \text{ exact ⟨ a, c, p, s ⟩ }
+\end{aligned}
+\]
+
 \section{Lessons from the Assignments}
 
 (Delete and Replace): Write three pages about your individual contributions to the project.
