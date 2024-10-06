@@ -355,6 +355,105 @@ Assumptions: $(A C I O P S U : Prop)(h: ((P \wedge S) \wedge A) \wedge \neg I \w
 \end{aligned}
 \]
 
+\subsection{Week 5}
+
+\subsubsection*{Notes} This week we discussed lambda higher order functions 
+in the context of Lambda functions and had an interesting discussion about Curry 
+Howard correspondance (currying) and languages. Lambda calculus functions are nameless, 
+type-free functions. Within the context of lean, at least, this has been a difficult concept 
+to grasp, because it is antithetical to the programming philosophy I have learned and practiced. 
+However, the nature of lambda calculus is the same, but instead of relying on type-specific context, 
+it relies on underlying logic within implicic type-deriving and preservation. I think this was 
+confusing to me also because it throws explicit type safety out the window. On Thursday we discussed 
+currying, $\alpha$-Conversion, $\beta$-Reduction, (and more) and had an interesting discussion about languages, 
+and meaning behind language.  
+
+\subsubsection*{Question} How do modern programming languages utilize (or avoid) lambda calculus in their syntax? In C\#, linq utilizes higher order functions encapsulating (what appears to be) explicitly defined lambda calculus functions, for example "enum.Where(x $\Rightarrow$ x.a $>$ 10)". It also seems like SQL syntax follows currying of lambda calculus functions, for example "SELECT * FROM \_ WHERE \_ ORDER BY \_", despite SQL not being a functional programming language.
+
+\subsubsection*{Homework}
+
+\subsubsection*{Level 1 - Cake Delivery Service}
+Assumptions: $(P C: Prop)(p: P)(bakery\_service : P \rightarrow C) : C := by$
+
+\[
+\begin{aligned}
+  (1)&\text{ exact (bakery\_service p)}
+\end{aligned}
+\]
+
+\subsubsection*{Level 2 - Identity}
+Assumptions: $(C: Prop) : C \rightarrow C := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact } \lambda \text{ var } \mapsto \text{ var }
+\end{aligned}
+\]
+
+\subsubsection*{Level 3 - Cake Form Swap}
+Assumptions: $(I S: Prop) : I \wedge S \rightarrow S \wedge I := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact } \lambda \text{ h : I } \wedge \text{ S } \mapsto \text{ and\_intro h.right h.left }
+\end{aligned}
+\]
+
+\subsubsection*{Level 4 - And Elimination}
+Assumptions: $(C A S: Prop) (h1 : C \rightarrow A) (h2 : A \rightarrow S) : C \rightarrow S := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact } \lambda \text{ c } \mapsto \text{ h2 (h1 c) }
+\end{aligned}
+\]
+
+\subsubsection*{Level 5 - Riffin Snacks}
+Assumptions: $(P Q R S T U: Prop) (p : P) (h1 : P \rightarrow Q) (h2 : Q \rightarrow R) (h3 : Q \rightarrow T) (h4 : S \rightarrow T) (h5 : T \rightarrow U) : U := by$
+
+\[
+\begin{aligned}
+  (1)& \text{exact h5 (h3 (h1 p))}
+\end{aligned}
+\]
+
+\subsubsection*{Level 6 - and\_imp}
+Assumptions: $(C D S: Prop) (h : C \wedge D \rightarrow S) : C \rightarrow D \rightarrow S := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact } \lambda \text{ c d } \mapsto \text{ h (and\_intro c d) }
+\end{aligned}
+\]
+
+\subsubsection*{Level 7 - and\_imp 2}
+Assumptions: $(C D S: Prop) (h : C \rightarrow D \rightarrow S) : C \wedge D \rightarrow S := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact } \lambda \text{ ⟨c, d⟩ } \mapsto \text{ h c d }
+\end{aligned}
+\]
+
+\subsubsection*{Level 8 - Distribute}
+Assumptions: $(C D S : Prop) (h : (S \rightarrow C) \wedge (S \rightarrow D)) : S \rightarrow C \wedge D := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ have ⟨l, r⟩ := h}\\
+  (2)& \text{ exact } \lambda \text{ s } \mapsto \text{ ⟨l s, r s⟩ }
+\end{aligned}
+\]
+
+\subsubsection*{Level 9 - Uncertain Snacks}
+Assumptions: $(R S : Prop) : R \rightarrow (S \rightarrow R) \wedge (\neg S \rightarrow R) := by$
+
+\[
+\begin{aligned}
+  (1)& \text{ exact } \lambda \text{ r } \mapsto \text{ and\_intro ( } \lambda \text{ \_ } \mapsto \text{ r ) } \lambda \text{ \_ } \mapsto \text{ r}
+\end{aligned}
+\]
+
 \section{Lessons from the Assignments}
 
 (Delete and Replace): Write three pages about your individual contributions to the project.
