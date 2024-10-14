@@ -454,6 +454,43 @@ Assumptions: $(R S : Prop) : R \rightarrow (S \rightarrow R) \wedge (\neg S \rig
 \end{aligned}
 \]
 
+\subsection{Week 6}
+
+\subsubsection*{Notes} This week we dove into theory discussions and lectures on application of currying, more complex lambda calculus and church numerals. To be honest, it is hard to remember much notes-wise because the theory was so intense, but I can say with confidence that I was confused - and embraced it! To help with my understanding, I looked for resources online and found this paper by Helmut Brandl titled \textbf{Limits of Computability in Lambda Calculus} (\url{https://hbr.github.io/Lambda-Calculus/computability/text.html}[link to article]) which actually covered nicely what we have been learning about recently. In the preamble, Kurt Goedel's \textit{Godel Numbering} is discussed, and I thought the paper gave some interesting historical context to a memorable moment in logic and maths history; "In his famous incompleteness theorem (1931) Goedel demonstrated that paradoxical statements can be injected into all formalisms which are powerful enough to express basic arithmetics." Anyway, I digress. 
+
+\subsubsection*{Question} Since lambda calculus is comprised of only abstraction and application, and cannot examine itself, how can infinitely recursing expressions like $(\lambda x.xx)(\lambda x.xx)$ terminate, and is that simply a non-issue? On a computer this would cause a stack overflow, but conceptually it follows the rules. Aside from physical computational constraints, are there other factors that do not permit translation from lambda calculus theory to implementation?
+
+\subsubsection*{Homework}
+
+1) Reduce the following lambda term:\\
+\[
+\begin{aligned}
+  & \text{  ((\textbackslash m.\textbackslash n. m n) (\textbackslash f.\textbackslash x. f (f x))) }\\
+  & \text{  (\textbackslash f.\textbackslash x. f (f (f x))) }\\
+  \\
+  (1)& \text{   ((\textbackslash m.\textbackslash n. m n) (\textbackslash f.\textbackslash x. f (f x))) (\textbackslash f2.\textbackslash x2. f2 (f2 (f2 x2)))}\\
+  \\
+  (2)& \text{   (\textbackslash n. (\textbackslash f.\textbackslash x. f (f x)) n) (\textbackslash f2.\textbackslash x2. f2 (f2 (f2 x2)))}\\
+  \\
+  (3)& \text{   (\textbackslash f.\textbackslash x. f (f x)) (\textbackslash f2.\textbackslash x2. f2 (f2 (f2 x2)))}\\
+  \\
+  (4)& \text{   \textbackslash x. (\textbackslash f2.\textbackslash x2. f2 (f2 (f2 x2))) ((\textbackslash f2.\textbackslash x2. f2 (f2 (f2 x2))) x)}\\
+  \\
+  (5)& \text{   \textbackslash x.(\textbackslash f2.\textbackslash x2. f2 (f2 (f2 x2))) (\textbackslash x2. x (x (x x2)))}\\
+  \\
+  (6)& \text{   \textbackslash x.\textbackslash x2.(\textbackslash x2. x (x (x x2))) ((\textbackslash x2. x (x (x x2))) ((\textbackslash x2. x (x (x x2))) x2))}\\
+  \\
+  (7)& \text{   x\textbackslash .\textbackslash x2.(\textbackslash x2. x (x (x x2))) ((\textbackslash x2. x (x (x x2))) (x (x (x x2))))}\\
+  \\
+  (8)& \text{   x\textbackslash .\textbackslash x2.(\textbackslash x2. x (x (x x2))) (x (x (x (x (x (x x2))))))}\\
+  \\
+  (9)& \text{   \textbackslash x.\textbackslash x2.x (x (x (x (x (x (x (x (x x2))))))))}\\
+\end{aligned}
+\]
+
+2) Explain what function on natural numbers $(\backslash m. \backslash n. m n)$ implements:\\
+\\This lambda expression implements similar behaviour to the identity function, but with church numerals. It returns the application of $m$ on $n$.
+
 \section{Lessons from the Assignments}
 
 (Delete and Replace): Write three pages about your individual contributions to the project.
