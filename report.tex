@@ -456,7 +456,7 @@ Assumptions: $(R S : Prop) : R \rightarrow (S \rightarrow R) \wedge (\neg S \rig
 
 \subsection{Week 6}
 
-\subsubsection*{Notes} This week we dove into theory discussions and lectures on application of currying, more complex lambda calculus and church numerals. To be honest, it is hard to remember much notes-wise because the theory was so intense, but I can say with confidence that I was confused - and embraced it! To help with my understanding, I looked for resources online and found this paper by Helmut Brandl titled \textbf{Limits of Computability in Lambda Calculus} (\url{https://hbr.github.io/Lambda-Calculus/computability/text.html}[link to article]) which actually covered nicely what we have been learning about recently. In the preamble, Kurt Goedel's \textit{Godel Numbering} is discussed, and I thought the paper gave some interesting historical context to a memorable moment in logic and maths history; "In his famous incompleteness theorem (1931) Goedel demonstrated that paradoxical statements can be injected into all formalisms which are powerful enough to express basic arithmetics." Anyway, I digress. 
+\subsubsection*{Notes} This week we dove into theory discussions and lectures on application of currying, more complex lambda calculus and church numerals. To be honest, it is hard to remember much notes-wise because the theory was so intense, but I can say with confidence that I was confused - and embraced it! To help with my understanding, I looked for resources online and found this paper by Helmut Brandl titled \textbf{Limits of Computability in Lambda Calculus} (\url{https://hbr.github.io/Lambda-Calculus/computability/text.html}) which actually covered nicely what we have been learning about recently. In the preamble, Kurt Goedel's \textit{Godel Numbering} is discussed, and I thought the paper gave some interesting historical context to a memorable moment in logic and maths history; "In his famous incompleteness theorem (1931) Goedel demonstrated that paradoxical statements can be injected into all formalisms which are powerful enough to express basic arithmetics." Anyway, I digress. 
 
 \subsubsection*{Question} Since lambda calculus is comprised of only abstraction and application, and cannot examine itself, how can infinitely recursing expressions like $(\lambda x.xx)(\lambda x.xx)$ terminate, and is that simply a non-issue? On a computer this would cause a stack overflow, but conceptually it follows the rules. Aside from physical computational constraints, are there other factors that do not permit translation from lambda calculus theory to implementation?
 
@@ -490,6 +490,62 @@ Assumptions: $(R S : Prop) : R \rightarrow (S \rightarrow R) \wedge (\neg S \rig
 
 2) Explain what function on natural numbers $(\backslash m. \backslash n. m n)$ implements:\\
 \\This lambda expression implements similar behaviour to the identity function, but with church numerals. It returns the application of $m$ on $n$.
+
+\subsection{Week 7}
+
+\subsubsection*{Notes} This week we started working on assignment 3, which is creating an interpreter of lambda calculus. We started with a base interpreter that does not perform as expected in all cases. Uses this as a template, we started working to understand its limitations and to address them. Dr. Kurz gave a brief overview of using the debugger in VScode, which will be a valuable asset during the development of the interpreter. 
+
+\subsubsection*{Question} I recently learned about programming language where the language aspect is built upon the Figma whiteboard feature. See \url{https://devpost.com/software/unreal-engjam} (Thanks @JadenJ for sharing!). The language was developed in TypeScript and generates an AST. I was intrigued into what other mediums can serve as effective interfaces; node-based visual scripting (e.g. Unity, UE) is an immediate thought. What other human $\rightarrow$ code interfaces exist? What makes a medium an effective tool for interfacing with code?
+
+\subsubsection*{Homework}
+
+Homework this week is working on assignment 3.
+
+\subsection{Week 8}
+
+\subsubsection*{Notes} This week in class we worked on Assignment 3 and talked about strategies for reducing lambda expressions. With the goal of reducing lambda expressions to normal form we learned and practiced using the VSCode debugger to navigate the interpreter program.
+
+\subsubsection*{Question} 
+
+\subsubsection*{Homework}
+Please see \textbf{Homework} under \textbf{Week 9} below for the combined homework for weeks 8 and 9.
+
+\subsection{Week 9} 
+
+\subsubsection*{Notes} This week we worked on assignment 3 in class and talked more about the logic behind reducing lambda expressions.
+
+\subsubsection*{Question} What separates the possible use cases of call-by-name and call-by-value methodologies? For example, I would think that a type-safe environment would prefer call-by-value because the input variable is evaluated before substitution takes place. 
+
+\subsubsection*{Homework}
+Please see \url{https://github.com/szykozlowski/lambda-calc-assignment/blob/main/WritttenQuestions.md} for our team's answers to this week's homework questions.
+
+
+\subsection{Week 10}
+
+\subsubsection*{Notes} This week in class we talked about algorithms as rewriting systems, the characteristics these expressions involving confluence, termination, and unique normal forms. We went into detail talking about the buggle sort as an example of an ARS. 
+
+\subsubsection*{Question} In the notes, an ARS is described as a non-deterministic algorithm for determining equivalency within the ARS. What about ARSs makes this process non-deterministic, and how can a non-deterministic process define equivalency?
+
+\subsubsection*{Homework}
+
+\[
+\begin{aligned}
+  (1)& \textbf{ What did you find most challenging when working through Homework 8/9 and Assignment 3?}\\
+     &  \text{The most challenging aspect was trying to figure out what functionality the program lacked. Because the}\\ 
+     &  \text{program is recursive, tracking the steps individually was difficult.}\\
+     &\\
+  (2)& \textbf{ How did you come up with the key insight for Assignment 3?}\\
+     &  \text{We came up with the key insight into solving assignment 3 by focusing less on the the program and more}\\
+     &  \text{on what, conceptually, needed to happen at each iteration of the evaluation process. This way, we could}\\
+     &  \text{see that any lam statement in the AST needed to be preceeded by an app statement, and figure out }\\
+     &  \text{exactly which step was being missed by the program.}\\
+     &\\
+  (3)& \textbf{ What is the most interesting takeaway from Homework 8/9 and Assignment 3?}\\
+     &  \text{My most interesting takeaway definitely concerned the debugger. Conceptually learning more abot how an}\\
+     &  \text{interpeter program works and recurses was exciting, but learning about another tool and getting it}\\
+     &  \text{under my belt felt very valuable.}\\
+\end{aligned}
+\]
 
 \section{Lessons from the Assignments}
 
