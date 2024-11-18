@@ -528,6 +528,14 @@ Please see \url{https://github.com/szykozlowski/lambda-calc-assignment/blob/main
 
 \subsubsection*{Homework}
 
+\subsection{Week 11}
+
+\subsubsection*{Notes} On tuesday we played around with the sliding puzzle and discussed solvability and invariability. Invariability is a system that doesn't change when transformations are applied to it.
+
+\subsubsection*{Question} 
+
+\subsubsection*{Homework}
+
 \[
 \begin{aligned}
   (1)& \textbf{ What did you find most challenging when working through Homework 8/9 and Assignment 3?}\\
@@ -544,6 +552,35 @@ Please see \url{https://github.com/szykozlowski/lambda-calc-assignment/blob/main
      &  \text{My most interesting takeaway definitely concerned the debugger. Conceptually learning more abot how an}\\
      &  \text{interpeter program works and recurses was exciting, but learning about another tool and getting it}\\
      &  \text{under my belt felt very valuable.}\\
+\end{aligned}
+\]
+
+\subsection{Week 11}
+
+\subsubsection*{Notes} On Tuesday we walked through an example of an ARS that described XOR behaviour. We applied the relationship between the ARS and the XOR truth table to an even/odd table, as well. This helped me to think about ARS's as describing non-determinate systems, because the behaviour that they describe (the equivalency behaviour) can be applied to many contexts, in the same way that a function doesn't care about the context that it is called from, or the context of its parameters. We continued to work on understanding other examples of ARSs. 
+
+\subsubsection*{Question} When thinking about how an ARS could describe a physiological system (e.g. homeostasis), is it possible to construct an ARS that can adapt its ruleset over time? For example, the characteristic of homeostasis, or rather its impact on bodily systems, is different if the person is in very cold weather as opposed to very hot weather.
+
+\subsubsection*{Homework}
+
+\begin{center}
+  \includegraphics[scale=.75]{CPSC354 HW11-1.png}\\
+  \includegraphics[scale=.75]{CPSC354 HW11-2.png}
+  \end{center}
+
+\subsection{Week 12}
+
+\subsubsection*{Notes} This week in class we talked about invariants, specifically within the context of a sliding puzzle on Tuesday. This puzzle was an interesting demonstration of how moving pieces around a puzzle which was impossible to begin with will never make it solvable, and vice versa. This also leads off of the discussion that we had about splitting computations into different equivalence classes, such that the defining characteristics of those computations will always remain regardless of how the system is changed. We discussed fixed-point combinators on Thursday, and how they can be used to implement recursion into lambda calculus. To do this we re-visited conditionals in lambda calculus and defined naming.
+
+\subsubsection*{Question} Are there other methods of performing recursion in lambda calculus besides fixed-point combinators? Does the definition of naming functional or is it just syntactic sugar?
+
+\subsubsection*{Homework}
+
+\[
+\begin{aligned}
+  \text{ let fact(3)} &\equiv  \text{ ( fix (f.x x)) in 3} &\dashleftarrow\text{def of let rec}\\
+  &\equiv\beta\text{ f.x ( fix (f.x x)) in 3} &\dashleftarrow\text{beta rule: sub fix F}\\
+  &\equiv\beta\text{ 3 * ( fix (f.x x)) in 2} &\dashleftarrow\text{beta rule: sub fix F}\\
 \end{aligned}
 \]
 
