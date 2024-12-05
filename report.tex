@@ -592,6 +592,45 @@ Please see \url{https://github.com/szykozlowski/lambda-calc-assignment/blob/main
 
 \subsubsection*{Homework} This week we worked on the next milestone for our interpreter.
 
+\textbf{Exercise 5}\\
+
+(1) Reduce the following strings using the rewrite rules:\\
+|    1. $abba \rightarrow aba \rightarrow aa \rightarrow \epsilon$\\
+|    2. $bababa \rightarrow baabba \rightarrow bbba \rightarrow bba \rightarrow ba \rightarrow a$
+
+(2) The ARS does not terminate because $ab \rightarrow ba$ and $ab \rightarrow ba$ are cyclic.
+
+(3) There are 3 equivalence classes:\\
+|    1. $\epsilon \rightarrow \epsilon$\\
+|    2. Even number of $a's \rightarrow \epsilon$\\
+|    3. Odd number of $a's \rightarrow a$\\
+
+(4) Yes, either of the following options would work\\
+|    1. $ab \rightarrow ba$ becomes $ab \rightarrow a$\\
+|    2. $ba \rightarrow ab$ becomes $ba \rightarrow a$\\
+These make the ARS terminate without changing the equivalence classes because it does not change the number of $a$s in the string.\\
+
+(5) There are 2 NFs for this ARS, being $\epsilon$ and $a$. The termination strategy in (4) produces an invariant in the number of $a$s in the string.\\
+
+  \textbf{Exercise 5b}\\
+
+  (1) Reduce the following strings using the rewrite rules:\\
+    |    1. $abba \rightarrow aba \rightarrow aa \rightarrow a$\\
+    |    2. $bababa \rightarrow ababa \rightarrow aaba \rightarrow aaa \rightarrow aa \rightarrow a$
+
+  (2) The ARS does not terminate because $ab \rightarrow ba$ and $ab \rightarrow ba$ are cyclic.
+
+  (3) There are 2 equivalence classes:\\
+    |    1. $\epsilon \rightarrow \epsilon$\\
+    |    2. Even number of $S \rightarrow a$ where $S$ is any string.\\
+
+  (4) Because the number of $a$s does not matter anymore, we can change either or both of the following rules:\\
+    |    1. $ab \rightarrow ba$ becomes $ab \rightarrow a$\\
+    |    2. $ba \rightarrow ab$ becomes $ba \rightarrow b$\\
+    These make the ARS terminate without changing the equivalence classes because it does not change the number of $a$s in the string.\\
+
+  (5) There are 2 NFs for this ARS, being $\epsilon$ and $a$. The termination strategy in (4) produces an invariant in the number of $a$s in the string.\\
+
 \section{Lessons from the Assignments}
 
 (Delete and Replace): Write three pages about your individual contributions to the project.
