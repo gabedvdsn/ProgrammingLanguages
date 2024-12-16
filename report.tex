@@ -65,7 +65,7 @@
   \newtheorem{remark}[theorem]{Remark}
 
 \title{CPSC-354 Report}
-\author{Your Name  \\ Chapman University}
+\author{Gabriel Davidson  \\ Chapman University}
 
 \date{\today} 
 
@@ -74,28 +74,16 @@
 \maketitle
 
 \begin{abstract}
-If will write this abstract... later!
+This report examines the progression of concepts within the umbrella of programming languages theory through 13 of weeks of theory-driven lecture, homework, and assignments. The driving concepts are lambda calculus and associated content, especially with respect to theorems and proofs, recursion as a programming strategy, parsing theory and its applications on interpreted languages, and context free grammars and the parsing of input into abstract syntax trees. We implemented the theory learned in class into 4 programming assignments that built off of each other to explore foundational topics, especially recursion, context-free grammars, abstract syntax trees, and the implementation of interpreters for custom languages. The final assignment culminates with an interpreter capable of handling complex operations, including conditional logic, variables, if-then-else blocks, lists, and recursive functions. Through these assignments, and through exercises practicing concepts core to the class's curriculum, how to implement meaningful concepts into concrete behaviour. 
 \end{abstract}
 
 \setcounter{tocdepth}{3}
 \tableofcontents
 
 \section{Introduction}\label{intro}
+Programming languages serve as the basis for computer science and enable the expression of complex behaviour, systems, and problems into executable programs. Languages allow develops to take on these problems, just as spoken languages allow humans to express themselves, by providing syntax and semantics. The theory behind programming languages is a huge canvas of concept and topics, and in this class we take on understanding the role of lambda calculus and its associated content, parsing theory, and context free grammars, among others. These topics are central to understanding the origins of programming languages as written languages, and also to designing and implementing custom languages of our own.
 
-This introduction will be filled later, when I know what I want to say!
-
-Grading  guidelines (see also below):
-\begin{itemize}
-\item Is typesetting and layout professional? 
-\item Is the technical content, in particular the homework, correct?
-\item Did the student find interesting references~\cite{bla} and cites them throughout the report?
-\item Do the notes reflect understanding and critical thinking?
-\item Does the report contain material related to but going beyond what we do in class?
-\item Are the questions interesting?
-\end{itemize}
-
-Do not change the template (fontsize, width of margin, spacing of lines, etc) without asking your first.
-
+This report will focus on that journey, from proving the validity of logic programs to creating our own context free grammars. By integrating theory with practical implementations, this course has taught me how abstract ideas can translate into tangible behaviour, and how we can utilize that behaviour to capture the essence of written syntax and transform (interpret!) it into executable logic.
 \section{Week by Week}\label{homework}
 
 \subsection{Week 1}
@@ -633,17 +621,135 @@ These make the ARS terminate without changing the equivalence classes because it
 
 \section{Lessons from the Assignments}
 
-(Delete and Replace): Write three pages about your individual contributions to the project.
+\subsection{Assignment 1}
+This was a very fun project and straightforward project to work on, mainly because I could utilize my coding skills with pure python. Without the overhead of needing to understand and organize the baseline code utilized in later assigments, especially with respect to grammars.\\
 
-On 3 pages you describe lessons you learned from the project. Be as technical and detailed as possible. Particularly valuable are \emph{interesting} examples where you connect concrete technical details with \emph{interesting} general observations or where the theory discussed in the lectures helped with the design or implementation of the project.
+The specifications for this assignment were straightforward but I was still able to apply some conceptual knowledge towards my solution. The code relies on recursing through parentheses-enclosed statements and evaluating a stack of stored terms. I remember we talked about the value of recursion as a problem-solving tecnique because it encourages a certain way of structuring code (exactly akin to how the evaluate and substitute functions are structured in assignment 3).\\
 
-Write this section during the semester. This is approximately a quarter of apage per week and the material should come from the work you do anyway. Just keep your eyes open for interesting lessons.
+To this end, let's talk a bit more about the high-level specifications of my solution.
+\begin{itemize}
+  \item Parsing
+    \begin{itemize}
+    \item I utilized regex to parse the input string
+    \item This separated the string into a sequence of tokens
+    \item I allowed for integers, floats, parentheses, and operations
+    \end{itemize}
+  \item Evaluation
+    \begin{itemize}
+      \item For each sub-expression (encapsulated within parentheses), the contents are tokenized and then evaluated
+      \item One stack contained all values, and another contained all operators
+      \item If an operator is encountered
+        \begin{itemize}
+          \item While the operator at the top of the stack is higher priority than the encountered operator
+          \item Two values are popped from the stack and the operator is applied to them
+          \item The calculated value is added to the stack
+          \item Finally, the encountered operator is added to the stack
+        \end{itemize}
+      \item This continues until the stacks are empty (when the tokens have all been evaluated)
+    \end{itemize}
+\end{itemize}
 
-Make sure that you use \LaTeX{} to structure your writing (eg by using subsections).
+I learned about applying recursion in a dynamic situation without relying on complex behaviour to capture edge cases. This prepared me to take on Assignment 2.\\
+
+\subsection{Assigment 2}
+This assignment was our first time utilizing a context free grammar to parse data and evaluate it based on a set of defined contexts. Using a grammar.lark file, we defined a set of rules by which the input would be evaluated. It was interesting to see how type-checking worked via the transformer, and to see that concept reflected in the evaluation.
+
+After we had discussed ASTs in length in class, putting it to use was very cool. I was also very interested in its relation to automata, which I had really enjoyed studying in algorithm analysis. Having an understanding of that concept allowed me to better understand how the context free grammar would be utilized by the transformer.
+
+The specifications of this assignment are not super interesting (compared to Assignment 3), but I will go over them briefly.
+
+\begin{itemize}
+  \item Parsing
+    \begin{itemize}
+      \item The transformer contains definitions for each terminal in the CFG.
+      \item These definitions return a tuple with the correct production of concrete syntax.
+    \end{itemize}
+  \item Evaluation
+    \begin{itemize}
+      \item Takes in the AST and evaluates it by each terminal syntax.
+      \item Correctly produces the expected result of each operation.
+    \end{itemize}
+\end{itemize}
+
+This assignment taught me about structuring a CFG and, more specifically, about how the transformer inteprets terminal and non-terminal transitions. I thought this was very cool, especially considering how you can structure the grammar to recognize specific syntax, or to pass to another variable (which I read being called "syntactic categories" on Wikipedia).
+
+\subsection{Assignment 3}
+
+Assignment 3 (and continued into assignment 4) is the culmination of the skills and concepts accrued during the class. Our group designed an interpreter to evaluate an AST parsed from a CFG. We constructed the CFG to reflect the required components of the language as well as their nature as operations in concept.
+
+For this assignment, we created a CFG to interpret lambda calculus operations $lam$ and $app$. $Lam$ is an un-typed, anonymous function with a single parameter that receives one argument. The $app$ refers to the application (or injection) of the argument into the function. In our grammar, we recognize lambda expressions as an expression encapsulated in parentheses that demarcated with a backslash ("\textbackslash"). 
+
+The AST is evaluated recursively, and handles each operation singularly (meaning one case at a time). This allows for the recursive function to isolate each operation, which is critical given the AST is (of course) a tree. Our program recognizes the application and expects a lambda to follow. It applies the argument to that expression. 
+
+To evaluate lambda expressions, our program follows these specifications:
+
+\begin{itemize}
+  \item Parsing (Grammar \textrightarrow AST)
+    \begin{itemize}
+      \item The CFG defines terminals for $lam$, $app$, and $var$
+      \item These definitions return a tuple with the correct production of concrete syntax
+    \end{itemize}
+  \item Evaluation
+    \begin{itemize}
+      \item Recognizes $app$ and finds the enclosed $lam$ operation within its siblings
+      \item Evaluates the argument and substitutes (injects) it into the function (following the tecnique of isolating each operation)
+    \end{itemize}
+\end{itemize}
+
+For this assignment, Szymon and I started by constructing the grammar to produce a valid AST. We evaluated the parsed AST ourselves in order to get the best idea of how to implement the receursive evaluate function. This approach was very valuable, because it allowed us to utilize the skills and concepts we practiced in class, and assure that the evaluate function follows that same logic.
+
+\subsection{Assignment 4}
+
+This assignment is the true culmination of the semester's content and knowledge. Our group implemented an interpreter to handle languages with mathematical and equality-related operations, lambda calculus functions, equality oper, variable naming, if-else-then blocks, recursive lambda functions (following the Y-combinator concept), and handling of multiple programs. 
+
+I was truly excited to work on this assignment, specifically because of my experience on Assignment 2, which was a very fun (and, thankfully, simple) initial dive into implementing interpreted languages. I was excited about writing CFGs to define syntax within a language, and how that model can be extended to account for so many operations. Assignment 4 was my opportunity to really work through how CFGs are written to account for an assortment of different operations in a much more complex context.
+
+\subsubsection{Milestone 1}
+
+The goal of milestone 1 was essentially to take the previous 2 assignments and combine them into one program. 
+
+Since we already had all the necessary grammar and evaluation code to accomplish this milestone, the only challenge lay in integrating them together in the grammar, and then reflecting any necessary changes in the interpreter.py file. 
+
+We noticed that we needed to re-order the syntactic categories. The lower in the grammar a category lies, the higher priority it is (rather, it will be evaluated against first). We made sure that lambda-calculus related operations maintained a higher priority, and that the $app$ terminal maintained the highest priority. Mathematical operations were ordered based on PEMDAS. Expressions within parentheses had a higher priority than $app$ operations, and negatives were above multiplication/division, which were above addition/subtraction. We implemented the necessary functions into the Lark transformer and then implemented handling of each operation in the evaluate function.  
+
+We reused the same implementation of $app$, $lam$, $var$, as well as the mathematical operations. Since each operation is isolated due to recursion, debugging was straightforward and Szymon and I were able to successfully run each test case very quickly. The last thing I will mention about milestone 1 is the use of $number$, which was used in Assignment 3 as well. An evaluation on a $number$ tuple simply returned its enclosed value as a float. 
+
+\subsubsection{Milestone 2}
+
+The purpose of this milestone is to extend the progress from milestone 1 with new operations, including if-else-then blocks and other equality operations, variable naming, and recursive functions.
+
+I thought that implementing $let$ functionality was interesting within the greater context of lambda calculus because it is for anonymous functions. Despite this, $let$ allows us to inject an expression into a lambda function without violating that property. I thought this was cool not only because we maintained that anonymous property, but because it took our language to a higher level, closer to modern languages, and separates the name from its implementation (just like how an abstract class separates the implementation of a class from its behaviour).
+
+Implementing recursion was pretty challenging. Szymon and I needed a couple weeks to properly implement it. The biggest difficulty lay in the grammar, and constructing it in a way that best allows the evaluation to manage the if-else-then block while maintaining arguments. In this way, we wanted to maintain that $fix f$ should evaluate to $f(fix f)$ when applicable. Our confusion lay in navigating the AST and (re)constructing a valid tree from the result of each recurse, with respect to how $lam$ and $app$ need to be parsed into the AST, even if there is no lambda calculus in the function itself.
+
+In the end, the logic for handling recursion follows these specifications:
+
+\begin{itemize}
+  \item Evaluate the $let$ expression fully, thereby substituting the function into the body
+  \item The expression will always begin with a $fix$
+  \item If the $fix$ expression handles a $lam$ operation, restructure the tree to begin with an $app$ (with the appropriate arguments) and evaluate
+  \item Fully evaluate, extending the tree until the break condition is met
+  \item Recurse through tree until all operations are handled and resolve to the result
+\end{itemize}
+
+Equality operations were easy to implement, simply requiring some expression on either side of a "==" or "<=" variable. This is implemented as the native equality comparison of each fully evaluated operand. If-else-then was implemented similarly. We can expect an equality operation as the first expression within an if clause, and therefore the fully evaluated result of that expression (which will always be 1.0 for True, and 0.0 for False) will dictate if we recurse evaluate into the $then$ or $else$ expressions.
+
+\subsubsection{Milestone 3}
+
+The goal of milestone 3 was to implement list and program (sequencing) functionality into our language.
+
+We started by first implementing list functionality. We added the appropriate syntax to our grammar within the second-highest priority syntactic category. For list syntax, we can expect variables, numbers, variable renaming, recursive functions, and encapsulated expressions. Following these expectations, the aforementioned operations are placed in the highest-priority syntactic category. Throughout the grammar, we made sure to always place data type terminals at a higher priority than operation terminals. This made sure that variables would be appropriately interpreted before introducing any operation syntax.
+
+Since we could be sure that any two variables in a list were encapsulated within $cons$, we could layer variables within a list within a chain of $cons$. The implementation of $cons$ allowed that, the evaluation of the first variable will always be the head of the list. If the second variable is a $cons$, then there are other variables in the list, which we can continue to recurse on. Otherwise, we have found tail of the list.
+
+Implementing programs was very straightforward. If we encountered ";;" in the input, we know we must isolate the implementation of each program. In accomplish this, the grammar separates the interpretation of each program. When evaluating, we can fully evaluate each program, and then return the combination of each program result joined by ";;".
 
 \section{Conclusion}\label{conclusion}
 
-(Delete and Replace): (approx 400 words) A critical reflection on the content of the course. Step back from the technical details. How does the course fit into the wider world of software engineering? What did you find most interesting or useful? What improvements would you suggest?
+This class was a joy to take, and especially to take high level concepts and apply them in meaningful ways. Besides a focus on the technical implementation of programming language interpreters, and the underlying concepts behind how languages are constituted, I enjoyed learning about the history of closely-related logic systems, puzzles and exercises that provide substance to concepts, and thinking about the application of lessons onto my personal areas of interest. I think that the content, and specifically the assignments, provided an invaluable opportunity to practice a very interesting form of development. I had never worked with grammars before, which are very cool, but most of all I have never developed a program quite like interpreter.py. This recursive, operation-based approach was very interesting to wrap my head around, but once I had, extending it came more easily. 
+
+One concept in particular was very interesting, and applicable to my field of interest (being game development). Invariants are properties or conditions that remain true during the course of a program. I immediately drew comparisons to game design, wherein the idea of directives, objectives, and consistent behaviour are paramount. Throughout the course of gameplay, there are systems that must remain consistent, and asserting an invariant can help us maintain that consistency. AI systems, for example, comprise a set of predefined behaviours. While the state of the system can change, the underlying conditions that define those states always remain the same. Conflicting conditions are commonplace in these systems (e.g. in-combat and in-combat-low-health share at least one condition), and yet the underlying invariant comprises a set of conditions and can manage these overlaps.
+
 
 \begin{thebibliography}{99}
 \bibitem[BLA]{bla} Author, \href{https://en.wikipedia.org/wiki/LaTeX}{Title}, Publisher, Year.
